@@ -1,3 +1,15 @@
 1,Makan,10.00
 2,Minum,11.00
 3,Tidur,12.00
+12,makan,13.01
+15,bomb,12.00
+100,konvoi,15.00
+2,mobil,13.00
+90,sekolah,14.00
+80,minum cucu,17.00
+20,loli,12.00
+12,tidur,01.00
+99,kilat,21.00
+12,belajar,09.10
+1,www,12.00
+90,mabar,12.00

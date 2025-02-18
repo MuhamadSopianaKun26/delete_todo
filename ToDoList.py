@@ -1,12 +1,8 @@
 import msvcrt
 import os
 
-data = [
-{"id":1, "todo":"Makan", "jam":"10.00"}
-
-]
-
-def DeleteToDo(x):
+#Function untuk menghapus list pada file dengan indeks yang ditentukan
+def DeleteTodo(x):
     with open('Data.txt', 'r') as file:
         lines = file.readlines()
 
@@ -16,9 +12,11 @@ def DeleteToDo(x):
             if i != x - 1: 
                 file.write(line)
 
-def Readfile():
+#Function untuk membaca file dan memprint semua isinya
+def ReadFile():
     Data = {}
     path = "Data.txt"
+    
     cek_file = os.path.isfile(path)
     
     if not cek_file:
@@ -37,7 +35,55 @@ def Readfile():
 
             for key, value in Data.items():
                 print(f"{key}. Do: {value['Do']}, Jam: {value['Jam']}")
-    
 
-Readfile()
-DeleteToDo(4)
+# Function untuk mengembalikan array yang berisi ID-ID yang sudah terpakai pada file
+def List_IDused():
+    ID_used = set()
+    try:
+        with open("Data.txt", "r") as file:
+            for line in file:
+                data = line.strip().split(",") 
+                if data: 
+                    ID_used.add(data[0])  
+    except FileNotFoundError:
+        print("File tidak ditemukan, membuat file baru...")
+    
+    return ID_used
+
+# Function untuk menambahkan isi To Do List dan memasukannya kedalam file
+def AddTodo():
+
+    ID_used = List_IDused()
+    end = False
+    file = open("Data.txt", "a")
+
+    while (not end):
+
+        while True:
+            id = str(input("\nMasukkan Id: "))
+            if id in ID_used:
+                print("ID ",id," sudah digunakan, silahkan masukan ID lain!")
+            else : 
+                break
+
+        todo = str(input("Masukkan kegiatan: "))
+        jam = str(input("Masukkan jam: "))
+
+        file.write(id + ",")
+        file.write(todo + ",")
+        file.write(jam )
+        file.write("\n")
+
+        out = input("Tambah lagi? Ketik 1 jika ya: ")
+        end = True
+
+        if out == 1:
+            end = False
+        elif out == "" or out != 1:
+            break
+
+    file.close()
+
+
+AddTodo()
+ReadFile()
